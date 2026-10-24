@@ -1,0 +1,13 @@
+import csv
+
+def export_events():
+
+    with open("events.csv", "w", newline="") as file:
+        writer = csv.writer(file)
+
+        writer.writerow(["Event"])
+
+        for event in events:
+            writer.writerow([event])
+
+    print("Export complete.")
