@@ -1,0 +1,26 @@
+events = []
+
+while True:
+    print("\nCalendar Tracker")
+    print("1. Add Event")
+    print("2. Delete Event")
+    print("3. View Events")
+    print("4. Exit")
+
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        event = input("Enter event: ")
+        events.append(event)
+
+    elif choice == "2":
+        event = input("Enter event to delete: ")
+
+        if event in events:
+            events.remove(event)
+
+    elif choice == "3":
+        print(events)
+
+    elif choice == "4":
+        break
