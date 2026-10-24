@@ -1,0 +1,16 @@
+import json
+
+def save_events():
+    with open("events.json", "w") as file:
+        json.dump(events, file)
+
+def load_events():
+    global events
+
+    try:
+        with open("events.json", "r") as file:
+            events = json.load(file)
+    except:
+        events = []
+
+load_events()
