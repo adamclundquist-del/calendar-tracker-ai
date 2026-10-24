@@ -1,0 +1,7 @@
+event = input("Enter event: ")
+recurring = input("Recurring? (Y/N): ")
+
+if recurring.upper() == "Y":
+    event += " (Recurring)"
+
+events.append(event)
