@@ -1,26 +1,102 @@
+└── events.csv
+Final Version 5 Code
+Python
+import json
+import csv
+ 
 events = []
-
+ 
+ 
+def load_events():
+global events
+ 
+try:
+with open("events.json", "r") as file:
+events = json.load(file)
+except FileNotFoundError:
+events = []
+ 
+ 
+def save_events():
+with open("events.json", "w") as file:
+json.dump(events, file)
+ 
+ 
+def add_event():
+event = input("Enter event name: ")
+ 
+recurring = input("Is this recurring? (Y/N): ")
+ 
+if recurring.upper() == "Y":
+event += " (Recurring)"
+ 
+events.append(event)
+save_events()
+ 
+print("Event added.")
+ 
+ 
+def delete_event():
+event = input("Enter event to delete: ")
+ 
+if event in events:
+events.remove(event)
+save_events()
+print("Event deleted.")
+else:
+print("Event not found.")
+ 
+ 
+def view_events():
+if not events:
+print("No events found.")
+return
+ 
+print("\nEvents:")
+ 
+for i, event in enumerate(events, start=1):
+print(f"{i}. {event}")
+ 
+ 
+def export_events():
+with open("events.csv", "w", newline="") as file:
+writer = csv.writer(file)
+ 
+writer.writerow(["Event"])
+ 
+for event in events:
+writer.writerow([event])
+ 
+print("Events exported to events.csv")
+ 
+ 
+load_events()
+ 
 while True:
-    print("\nCalendar Tracker")
-    print("1. Add Event")
-    print("2. Delete Event")
-    print("3. View Events")
-    print("4. Exit")
-
-    choice = input("Choose an option: ")
-
-    if choice == "1":
-        event = input("Enter event: ")
-        events.append(event)
-
-    elif choice == "2":
-        event = input("Enter event to delete: ")
-
-        if event in events:
-            events.remove(event)
-
-    elif choice == "3":
-        print(events)
-
-    elif choice == "4":
-        break
+ 
+print("\nCalendar Tracker")
+print("1. Add Event")
+print("2. Delete Event")
+print("3. View Events")
+print("4. Export Events")
+print("5. Exit")
+ 
+choice = input("Choose an option: ")
+ 
+if choice == "1":
+add_event()
+ 
+elif choice == "2":
+delete_event()
+ 
+elif choice == "3":
+view_events()
+ 
+elif choice == "4":
+export_events()
+ 
+elif choice == "5":
+break
+ 
+else:
+print("Invalid choice")
